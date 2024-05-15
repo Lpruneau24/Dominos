@@ -70,30 +70,39 @@ def crustEntryLarge():
 def crustEntryXlarge():
     crust = 'regular'
     return crust
+    
+def get_tax(subtotal: int):
+    tax = 0.13 * subtotal
+    return tax
+def get_total(subtotal: int):
+    return subtotal * 1.13
 
 item_list = orderEntry()
 
 order = Dominos(item_list[0], item_list[1])
 print(order)
 
-total = 0
-total = total + order.get_price()
+subtotal = 0
+subtotal = format(subtotal + order.get_price(), '.2f')
 
-print(f"Your total is ${total}")
+print(f"Subtotal: ${subtotal}")
 
 while True:
     order_again = input("Would you like to order something else? [yes/no]")
     while order_again not in {'yes', 'no'}:
-	print("Invalid entry. Please try again.")
-	order_again = input("Would you like to order something else? [yes/no]")
+        print("Invalid entry. Please try again.")
+        order_again = input("Would you like to order something else? [yes/no]")
     if order_again == 'yes':
         item_list = orderEntry()
         order = Dominos(item_list[0], item_list[1])
-        total = total + order.get_price()
+        subtotal = float(subtotal) + order.get_price()
         print(order)
-        format(total, '.2f')
-        print(f"Your total is ${total}")
+        format(subtotal, '.2f')
+        print(f"Subtotal: ${subtotal}")
     else:
-	format(total, '.2f') # some cases the program stopped rounding for whatever reason so I added one in the end just in case
-        print(f"Your final total is ${total}")
+        tax = format(get_tax(subtotal), '.2f')
+        total = format(get_total(subtotal), '.2f')
+        print(f"Subtotal: ${subtotal}")
+        print(f"Sale tax: {tax}")
+        print(f"Total: ${total}")
         break

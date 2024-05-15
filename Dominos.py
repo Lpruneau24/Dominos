@@ -84,8 +84,8 @@ print(f"Your total is ${total}")
 while True:
     order_again = input("Would you like to order something else? [yes/no]")
     while order_again not in {'yes', 'no'}:
-		print("Invalid entry. Please try again.")
-		order_again = input("Would you like to order something else? [yes/no]")
+	print("Invalid entry. Please try again.")
+	order_again = input("Would you like to order something else? [yes/no]")
     if order_again == 'yes':
         item_list = orderEntry()
         order = Dominos(item_list[0], item_list[1])
@@ -94,6 +94,6 @@ while True:
         format(total, '.2f')
         print(f"Your total is ${total}")
     else:
-		format(total, '.2f') # some cases the program stopped rounding for whatever reason so I added one in the end just in case
+	format(total, '.2f') # some cases the program stopped rounding for whatever reason so I added one in the end just in case
         print(f"Your final total is ${total}")
         break

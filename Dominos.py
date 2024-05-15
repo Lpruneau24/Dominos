@@ -72,10 +72,11 @@ def crustEntryXlarge():
     return crust
     
 def get_tax(subtotal: int):
-    tax = 0.13 * subtotal
+    tax = 0.13 * float(subtotal)
     return tax
 def get_total(subtotal: int):
-    return subtotal * 1.13
+    total = float(subtotal) * 1.13
+    return total
 
 item_list = orderEntry()
 
@@ -102,7 +103,11 @@ while True:
     else:
         tax = format(get_tax(subtotal), '.2f')
         total = format(get_total(subtotal), '.2f')
+        print()
+        print()
+        print('-----------------')
         print(f"Subtotal: ${subtotal}")
         print(f"Sale tax: {tax}")
         print(f"Total: ${total}")
+        print('-----------------')
         break

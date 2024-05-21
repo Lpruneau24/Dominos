@@ -1,0 +1,10 @@
+Size Crust Price
+Small Regular 10.99
+Small Thin 10.99
+Medium Regular 12.99
+Medium Thin 12.99
+Medium Pan 13.99
+Large Regular 14.99
+Large Thin 14.99
+Large Stuffed 15.99
+XLarge Regular 16.99

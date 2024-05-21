@@ -1,10 +1,11 @@
 def getPizzaDict (filePath):    # This function will create dictionaries with crust types as keys and prices as values nested inside a bigger dictionary with sizes as keys.
     import collections
-
+    
     pizza = open(filePath, 'r')
     pizza_list = pizza.readlines()
     pizza_dict = collections.defaultdict(dict)
-
+    
+    print("This is our menu:")
     for row in pizza_list[1:]: # evaluates all the lines with a variable called row (not including header line 0)
         vals = row.strip().lower().split()
         print(vals)
@@ -12,6 +13,7 @@ def getPizzaDict (filePath):    # This function will create dictionaries with cr
             pizza_dict[vals[0]][vals[1]] = vals[2]
 
     pizza.close
+    print()
     return pizza_dict
 def orderEntry():    # This function will ask the user what kind of pizza they want and using the dictionary above, return a list of 3 items being size, crust and price. This will be called many times.
 

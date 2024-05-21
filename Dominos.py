@@ -1,39 +1,50 @@
-class Dominos:
-    
-    def __init__(self, size, crust):
-        self._s = size
-        self._c = crust
-        if size == 'small':
-            self._p = 10.99
-        elif self._s == 'medium':
-            if self._c != 'pan':
-                self._p = 12.99
-            else:
-                self._p = 13.99
-        elif self._s == 'large':
-            if self._c != 'stuffed':
-                self._p = 14.99
-            else:
-                self._p = 15.99
-        elif self._s == 'xlarge':
-            self._p = 16.99
-        else:
-            return none
-            
-    def get_price(self):
-        return self._p
-    
-    def __str__(self):
-        return f"The price for {self._s} {self._c} pizza is ${self._p}."
+def getPizzaDict (filePath):
+    import collections
 
+    pizza = open(filePath, 'r')
+    pizza_list = pizza.readlines()
+    pizza_dict = collections.defaultdict(dict)
 
+    for row in pizza_list[1:]: #evaluates all the lines with a variable called row (not including header line 0)
+        vals = row.strip().lower().split()
+        print(vals)
+        if vals[0] in {'small', 'medium', 'large', 'xlarge'}:
+            pizza_dict[vals[0]][vals[1]] = vals[2]
+
+    pizza.close
+    return pizza_dict
 def orderEntry():
-    
+
     size = input("What size would you like? [small/medium/large/xlarge]")
     while size not in {'small','medium','large','xlarge'}:
         print("Invalid entry. Please try again.")
         size = input("What size would you like? [small/medium/large/xlarge]")
-        
+
+    def crustEntrySmall():
+        crust = input("What crust would you like?")
+        while crust not in small_keys:
+            print("Invalid entry. Please try again.")
+            crust = input("What crust would you like?")
+        return crust
+    def crustEntryMedium():
+        crust = input("What crust would you like?")
+        while crust not in medium_keys:
+            print("Invalid entry. Please try again.")
+            crust = input("What crust would you like?")
+        return crust
+    def crustEntryLarge():
+        crust = input("What crust would you like? [regular/thin/stuffed]")
+        while crust not in large_keys:
+            print("Invalid entry. Please try again.")
+            crust = input("What crust would you like? [regular/thin/stuffed]")
+        return crust
+    def crustEntryXLarge():
+        crust = input("What crust would you like?")
+        while crust not in xlarge_keys:
+            print("Invalid entry. Please try again.")
+            crust = input("What crust would you like?")
+        return crust
+
     if size == 'small':
         crust = crustEntrySmall()
     elif size == 'medium':
@@ -41,52 +52,38 @@ def orderEntry():
     elif size == 'large':
         crust = crustEntryLarge()
     else:
-        crust = crustEntryXlarge()
-        
-    return [size, crust]
-    
-def crustEntrySmall():
-    crust = input("What crust would you like? [regular/thin]")
-    while crust not in {'regular','thin'}:
-        print("Invalid entry. Please try again.")
-        crust = input("What crust would you like? [regular/thin]")
-    return crust
-        
-def crustEntryMedium():
-    crust = input("What crust would you like? [regular/thin/pan]")
-    while crust not in {'regular','thin','pan'}:
-        print("Invalid entry. Please try again.")
-        crust = input("What crust would you like? [regular/thin/pan]")
-    return crust
+        crust = crustEntryXLarge()
 
-def crustEntryLarge():
-    crust = input("What crust would you like? [regular/thin/stuffed]")
-    while crust not in {'regular','thin','stuffed'}:
-        print("Invalid entry. Please try again.")
-        crust = input("What crust would you like? [regular/thin/stuffed]")
-    return crust
+    price = pizza_dict[size][crust]
+        
+    return [size, crust, price]
 
-    
-def crustEntryXlarge():
-    crust = 'regular'
-    return crust
-    
-def get_tax(subtotal: int):
-    tax = 0.13 * float(subtotal)
-    return tax
-def get_total(subtotal: int):
-    total = float(subtotal) * 1.13
-    return total
+class Tax:
+    def __init__(self, subtotal, taxRate = 0.13):
+        self.subtotal = subtotal
+        self.taxRate = taxRate
+    def get_tax(self):
+        salesTax = float(subtotal) * float(self.taxRate)
+        return salesTax
+    def get_total(self):
+        total = float(subtotal) + float(subtotal) * float(self.taxRate)
+        return total
+
+pizzaFile = "D:\Leandre\Apps\GitHub\Repository\Dominos\Pizza.txt" # input("Paste the file path for pizzas please.")
+pizza_dict = getPizzaDict(pizzaFile)
+
+small_keys = pizza_dict['small'].keys()
+medium_keys = pizza_dict['medium'].keys()
+large_keys = pizza_dict['large'].keys()
+xlarge_keys = pizza_dict['xlarge'].keys()
+
+taxRate = 0.13 # input("What is the tax rate?")
 
 item_list = orderEntry()
 
-order = Dominos(item_list[0], item_list[1])
-print(order)
-
 subtotal = 0
-subtotal = format(subtotal + order.get_price(), '.2f')
-
-print(f"Subtotal: ${subtotal}")
+subtotal = subtotal + float(item_list[2])
+print(f"Your subtotal is ${subtotal}")
 
 while True:
     order_again = input("Would you like to order something else? [yes/no]")
@@ -95,14 +92,14 @@ while True:
         order_again = input("Would you like to order something else? [yes/no]")
     if order_again == 'yes':
         item_list = orderEntry()
-        order = Dominos(item_list[0], item_list[1])
-        subtotal = float(subtotal) + order.get_price()
-        print(order)
-        format(subtotal, '.2f')
+        subtotal = float(subtotal) + float(item_list[2])
+        subtotal = format(subtotal, '.2f')
         print(f"Subtotal: ${subtotal}")
     else:
-        tax = format(get_tax(subtotal), '.2f')
-        total = format(get_total(subtotal), '.2f')
+        tax = Tax(subtotal, taxRate).get_tax()
+        tax = format(tax, '.2f')
+        total = Tax(subtotal).get_total()
+        total = format(total, '.2f')
         print()
         print()
         print('-----------------')

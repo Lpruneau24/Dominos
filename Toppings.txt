@@ -1,0 +1,19 @@
+Topping Price
+Onion:1.00
+Green Pepper:1.00
+Tomato:1.00
+Pineapple:1.00
+Black Olives:1.00
+Green Olives:1.00
+Spinach:1.00
+Bannana Peppers:1.00
+Pepperoni:1.00
+Brooklyn Pepperoni:1.00
+Ham:1.00
+Sausage:1.00
+Beef:1.00
+Bacon:1.00
+Chicken:1.40
+Philly Steak:1.40
+Provolone:1.40
+Extra Cheese:1.40
